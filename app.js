@@ -1,10 +1,10 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
-console.log('Node server is running!');
+console.log('im on a node server, yo');
 
-app.get('/', (req, res) => {
-  res.send('Hello from Express on your local machine!');
-});
+app.get('/', function (req, res) {
+  res.send('Hello Node from Ex on local dev box')
+})
 
-app.listen(3000);
+app.listen(5000)
