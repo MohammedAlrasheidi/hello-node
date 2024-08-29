@@ -1,125 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phonetic Generator</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#generateBtn').click(function() {
-                var text = $('#inputText').val();
-                var heroPhonetic = generateHero(text);
-                var fantasyPhonetic = generateFantasy(text);
-                
-                $('#output').html('<strong>Heroic:</strong> ' + heroPhonetic + '<br> <strong>Fantasy:</strong> ' + fantasyPhonetic);
-            });
+$(document).ready(function() {
+  $('#generateBtn').click(function() {
+    var text = $('#inputText').val();
+    var natoPhonetic = generateNato(text);
+    var civilianPhonetic = generateCivilian(text);
+    $('#output').html('<strong>NATO:</strong> ' + natoPhonetic + '<br> <strong>Civilian:</strong> ' + civilianPhonetic);
+  });
 
-            // Clear button functionality
-            $('#clearBtn').click(function() {
-                $('#inputText').val('');
-                $('#output').empty(); 
-            });
+  $('#clearBtn').click(function() {
+    $('#inputText').val('');
+    $('#output').empty(); 
+  });
 
-            // Heroic alphabet
-            function generateHero(text) {
-                var heroAlph = {
-                    'A': 'Apollo',
-                    'B': 'Blade',
-                    'C': 'Cyclone',
-                    'D': 'Dynamo',
-                    'E': 'Eagle',
-                    'F': 'Falcon',
-                    'G': 'Gladiator',
-                    'H': 'Hawk',
-                    'I': 'Inferno',
-                    'J': 'Justice',
-                    'K': 'Knight',
-                    'L': 'Lionheart',
-                    'M': 'Maverick',
-                    'N': 'Nemesis',
-                    'O': 'Oracle',
-                    'P': 'Phoenix',
-                    'Q': 'Quasar',
-                    'R': 'Ranger',
-                    'S': 'Shadow',
-                    'T': 'Titan',
-                    'U': 'Ultimo',
-                    'V': 'Vortex',
-                    'W': 'Warrior',
-                    'X': 'Xenon',
-                    'Y': 'Yukon',
-                    'Z': 'Zephyr'
-                };
+  function generateNato(text) {
+    var natoAlph = {
+      'A': 'Alpha',
+      'B': 'Bravo',
+      'C': 'Charlie',
+      'D': 'Delta',
+      'E': 'Echo',
+      'F': 'Foxtrot',
+      'G': 'Golf',
+      'H': 'Hotel',
+      'I': 'India',
+      'J': 'Juliett',
+      'K': 'Kilo',
+      'L': 'Lima',
+      'M': 'Mike',
+      'N': 'November',
+      'O': 'Oscar',
+      'P': 'Papa',
+      'Q': 'Quebec',
+      'R': 'Romeo',
+      'S': 'Sierra',
+      'T': 'Tango',
+      'U': 'Uniform',
+      'V': 'Victor',
+      'W': 'Whiskey',
+      'X': 'X-ray',
+      'Y': 'Yankee',
+      'Z': 'Zulu'
+    };
 
-                var upperText = text.toUpperCase();
-                var phonetic = '';
+    var upperText = text.toUpperCase();
+    var phonetic = '';
 
-                for (var i = 0; i < upperText.length; i++) {
-                    var char = upperText[i];
-                    if (heroAlph[char]) {
-                        phonetic += heroAlph[char] + ' ';
-                    } else {
-                        phonetic += char + ' ';
-                    }
-                }
+    for (var i = 0; i < upperText.length; i++) {
+      var char = upperText[i];
+      phonetic += natoAlph[char] ? natoAlph[char] + ' ' : char + ' ';
+    }
 
-                return phonetic.trim();
-            }
+    return phonetic.trim();
+  }
 
-            // Fantasy alphabet
-            function generateFantasy(text) {
-                var fantasyAlph = {
-                    'A': 'Ariel',
-                    'B': 'Balthazar',
-                    'C': 'Cassandra',
-                    'D': 'Drake',
-                    'E': 'Elara',
-                    'F': 'Frost',
-                    'G': 'Gondor',
-                    'H': 'Hera',
-                    'I': 'Isolde',
-                    'J': 'Jareth',
-                    'K': 'Kara',
-                    'L': 'Lyria',
-                    'M': 'Merlin',
-                    'N': 'Nyx',
-                    'O': 'Orion',
-                    'P': 'Perseus',
-                    'Q': 'Quinn',
-                    'R': 'Raven',
-                    'S': 'Selene',
-                    'T': 'Thorne',
-                    'U': 'Ulysses',
-                    'V': 'Valkyrie',
-                    'W': 'Wraith',
-                    'X': 'Xander',
-                    'Y': 'Yara',
-                    'Z': 'Zeus'
-                };
+  function generateCivilian(text) {
+    var civilianAlph = {
+      'A': 'Adam',
+      'B': 'Boy',
+      'C': 'Charlie',
+      'D': 'David',
+      'E': 'Edward',
+      'F': 'Frank',
+      'G': 'George',
+      'H': 'Henry',
+      'I': 'Ida',
+      'J': 'John',
+      'K': 'King',
+      'L': 'Lincoln',
+      'M': 'Mary',
+      'N': 'Nora',
+      'O': 'Ocean',
+      'P': 'Paul',
+      'Q': 'Queen',
+      'R': 'Robert',
+      'S': 'Sam',
+      'T': 'Tom',
+      'U': 'Union',
+      'V': 'Victor',
+      'W': 'William',
+      'X': 'X-ray',
+      'Y': 'Yellow',
+      'Z': 'Zebra'
+    };
 
-                var upperText = text.toUpperCase();
-                var phonetic = '';
+    var upperText = text.toUpperCase();
+    var phonetic = '';
 
-                for (var i = 0; i < upperText.length; i++) {
-                    var char = upperText[i];
-                    if (fantasyAlph[char]) {
-                        phonetic += fantasyAlph[char] + ' ';
-                    } else {
-                        phonetic += char + ' ';
-                    }
-                }
+    for (var i = 0; i < upperText.length; i++) {
+      var char = upperText[i];
+      phonetic += civilianAlph[char] ? civilianAlph[char] + ' ' : char + ' ';
+    }
 
-                return phonetic.trim();
-            }
-        });
-    </script>
-</head>
-<body>
-    <h1>Phonetic Alphabet Generator</h1>
-    <input type="text" id="inputText" placeholder="Enter text here">
-    <button id="generateBtn">Generate Phonetics</button>
-    <button id="clearBtn">Clear</button>
-    <div id="output"></div>
-</body>
-</html>
+    return phonetic.trim();
+  }
+});
