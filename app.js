@@ -1,16 +1,14 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 
-console.log('I'm on a Node server, yo');
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve static files from the current directory
-app.use(express.static('./'));
-
-app.get('/', function (req, res) {
-  res.send('Hello Node from Ex on local dev box');
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(5000, () => {
-  console.log('Server is running on http://localhost:5000');
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
 });
 
