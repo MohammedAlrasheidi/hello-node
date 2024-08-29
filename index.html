@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpha Bravo Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="text-center py-3">
+    <h1>Phonetic Code Converter</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container mt-4">
+      <div class="mb-3">
+        <label for="nameInput" class="form-label">Enter Text:</label>
+        <textarea id="nameInput" class="form-control" rows="3"></textarea>
+      </div>
+      <button id="convertBtn" class="btn btn-success">Convert</button>
+      <button id="resetBtn" class="btn btn-danger ms-2">Reset</button>
+      <div id="result" class="mt-4"></div>
+    </div>
+
+    <!-- Information Card -->
+    <div class="container mt-5">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Understanding Phonetic Alphabets</h5>
+          <p>The phonetic alphabets are used worldwide to ensure clear communication.</p>
+          <p><strong>NATO Phonetic Alphabet:</strong> Widely adopted by military and aviation industries.</p>
+          <p><strong>Civilian Phonetic Alphabet:</strong> Often used in non-military contexts as an alternative.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="text-center mt-5">
+    <a href="https://github.com/MohammedAlrasheidi/hello-node" target="_blank">GitHub Repo</a> |
+    <a href="https://validator.w3.org/nu/" target="_blank">HTML Validator</a>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
 
