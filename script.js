@@ -1,95 +1,68 @@
-$(document).ready(function() {
-  $('#generateBtn').click(function() {
-    var text = $('#inputText').val();
-    var natoPhonetic = generateNato(text);
-    var civilianPhonetic = generateCivilian(text);
-    $('#output').html('<strong>NATO:</strong> ' + natoPhonetic + '<br> <strong>Civilian:</strong> ' + civilianPhonetic);
-  });
+document.addEventListener('DOMContentLoaded', function() {
+    const inputText = document.getElementById('inputText');
+    const generateBtn = document.getElementById('generateBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const outputList = document.getElementById('outputList');
+    const outputFormatSelect = document.getElementById('outputFormat');
 
-  $('#clearBtn').click(function() {
-    $('#inputText').val('');
-    $('#output').empty(); 
-  });
+    generateBtn.addEventListener('click', function() {
+        generatePhonetic();
+    });
 
-  function generateNato(text) {
-    var natoAlph = {
-      'A': 'Alpha',
-      'B': 'Bravo',
-      'C': 'Charlie',
-      'D': 'Delta',
-      'E': 'Echo',
-      'F': 'Foxtrot',
-      'G': 'Golf',
-      'H': 'Hotel',
-      'I': 'India',
-      'J': 'Juliett',
-      'K': 'Kilo',
-      'L': 'Lima',
-      'M': 'Mike',
-      'N': 'November',
-      'O': 'Oscar',
-      'P': 'Papa',
-      'Q': 'Quebec',
-      'R': 'Romeo',
-      'S': 'Sierra',
-      'T': 'Tango',
-      'U': 'Uniform',
-      'V': 'Victor',
-      'W': 'Whiskey',
-      'X': 'X-ray',
-      'Y': 'Yankee',
-      'Z': 'Zulu'
-    };
+    clearBtn.addEventListener('click', function() {
+        clearOutput();
+    });
 
-    var upperText = text.toUpperCase();
-    var phonetic = '';
+    inputText.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            generatePhonetic();
+        }
+    });
 
-    for (var i = 0; i < upperText.length; i++) {
-      var char = upperText[i];
-      phonetic += natoAlph[char] ? natoAlph[char] + ' ' : char + ' ';
+    function generatePhonetic() {
+        const text = inputText.value.toUpperCase();
+        const outputFormat = outputFormatSelect.value;
+
+        let phonetic;
+        if (outputFormat === 'nato') {
+            phonetic = generateNato(text);
+        }
+
+        displayPhonetic(phonetic);
     }
 
-    return phonetic.trim();
-  }
-
-  function generateCivilian(text) {
-    var civilianAlph = {
-      'A': 'Adam',
-      'B': 'Boy',
-      'C': 'Charlie',
-      'D': 'David',
-      'E': 'Edward',
-      'F': 'Frank',
-      'G': 'George',
-      'H': 'Henry',
-      'I': 'Ida',
-      'J': 'John',
-      'K': 'King',
-      'L': 'Lincoln',
-      'M': 'Mary',
-      'N': 'Nora',
-      'O': 'Ocean',
-      'P': 'Paul',
-      'Q': 'Queen',
-      'R': 'Robert',
-      'S': 'Sam',
-      'T': 'Tom',
-      'U': 'Union',
-      'V': 'Victor',
-      'W': 'William',
-      'X': 'X-ray',
-      'Y': 'Yellow',
-      'Z': 'Zebra'
-    };
-
-    var upperText = text.toUpperCase();
-    var phonetic = '';
-
-    for (var i = 0; i < upperText.length; i++) {
-      var char = upperText[i];
-      phonetic += civilianAlph[char] ? civilianAlph[char] + ' ' : char + ' ';
+    function generateNato(text) {
+        const natoAlphabet = {
+            'A': 'Alpha', 'B': 'Bravo', 'C': 'Charlie', 'D': 'Delta', 'E': 'Echo',
+            'F': 'Foxtrot', 'G': 'Golf', 'H': 'Hotel', 'I': 'India', 'J': 'Juliett',
+            'K': 'Kilo', 'L': 'Lima', 'M': 'Mike', 'N': 'November', 'O': 'Ohh Wow',
+            'P': 'Papa', 'Q': 'Quebec', 'R': 'Romeo', 'S': 'Sierra', 'T': 'Tango',
+            'U': 'Uniform', 'V': 'Victor', 'W': 'Whiskey', 'X': 'X-ray', 'Y': 'Yankee',
+            'Z': 'Zulu'
+        };
+        
+        const phoneticArray = [];
+        for (let char of text) {
+            if (natoAlphabet[char]) {
+                phoneticArray.push(natoAlphabet[char]);
+            } else {
+                phoneticArray.push(char);
+            }
+        }
+        return phoneticArray;
     }
 
-    return phonetic.trim();
-  }
+    function displayPhonetic(phonetic) {
+        outputList.innerHTML = '';
+        phonetic.forEach(function(item) {
+            const li = document.createElement('li');
+            li.textContent = item;
+            outputList.appendChild(li);
+        });
+    }
+
+    function clearOutput() {
+        inputText.value = '';
+        outputList.innerHTML = '';
+    }
 });
