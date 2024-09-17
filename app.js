@@ -79,8 +79,8 @@ app.get('/insert', async (req,res)=> {
   //connect to db,
   await client.connect();
   //point to the collection 
-  await client.db("barrys-db").collection("whatever-collection").insertOne({ post: 'hardcoded post insert '});
-  await client.db("barrys-db").collection("whatever-collection").insertOne({ iJustMadeThisUp: 'hardcoded new key '});  
+  await client.db("Mohammeds-db").collection("whatever-collection").insertOne({ post: 'hardcoded post insert '});
+  await client.db("Mohammeds-db").collection("whatever-collection").insertOne({ iJustMadeThisUp: 'hardcoded new key '});  
   //insert into it
   res.render('insert');
 
