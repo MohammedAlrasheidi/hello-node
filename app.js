@@ -63,7 +63,7 @@ app.get('/read', async (req,res)=>{
   console.log('connected?');
   // Send a ping to confirm a successful connection
   
-  let result = await client.db("barrys-db").collection("whatever-collection")
+  let result = await client.db("Mohammed-db").collection("whatever-collection")
     .find({}).toArray(); 
   console.log(result); 
 
@@ -106,7 +106,7 @@ app.post('/delete/:id', async (req,res)=>{
   console.log("req.parms.id: ", req.params.id)
 
   client.connect; 
-  const collection = client.db("barrys-db").collection("whatever-collection");
+  const collection = client.db("Mohammed-db").collection("whatever-collection");
   let result = await collection.findOneAndDelete( 
   {"_id": new ObjectId(req.params.id)})
 
