@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const { urlencoded } = require('body-parser')
 const { ObjectId } = require('mongodb')
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = `mongodb+srv://barry:${process.env.MONGO_PWD}@cluster0.5abxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`; 
+const uri = `mongodb+srv://malrasheidi_11:<db_password>@cluster0.vjpps.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`; 
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
@@ -63,7 +63,7 @@ app.get('/read', async (req,res)=>{
   console.log('connected?');
   // Send a ping to confirm a successful connection
   
-  let result = await client.db("barrys-db").collection("whatever-collection")
+  let result = await client.db("Mohammed-db").collection("whatever-collection")
     .find({}).toArray(); 
   console.log(result); 
 
@@ -79,8 +79,8 @@ app.get('/insert', async (req,res)=> {
   //connect to db,
   await client.connect();
   //point to the collection 
-  await client.db("barrys-db").collection("whatever-collection").insertOne({ post: 'hardcoded post insert '});
-  await client.db("barrys-db").collection("whatever-collection").insertOne({ iJustMadeThisUp: 'hardcoded new key '});  
+  await client.db("Mohammeds-db").collection("whatever-collection").insertOne({ post: 'hardcoded post insert '});
+  await client.db("Mohammeds-db").collection("whatever-collection").insertOne({ iJustMadeThisUp: 'hardcoded new key '});  
   //insert into it
   res.render('insert');
 
@@ -106,7 +106,7 @@ app.post('/delete/:id', async (req,res)=>{
   console.log("req.parms.id: ", req.params.id)
 
   client.connect; 
-  const collection = client.db("barrys-db").collection("whatever-collection");
+  const collection = client.db("Mohammed-db").collection("whatever-collection");
   let result = await collection.findOneAndDelete( 
   {"_id": new ObjectId(req.params.id)})
 
