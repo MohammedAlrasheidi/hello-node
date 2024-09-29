@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const { urlencoded } = require('body-parser')
 const { ObjectId } = require('mongodb')
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = `mongodb+srv://malrasheidi_11:<db_password>@cluster0.vjpps.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`; 
+const uri = `mongodb+srv://malrasheidi_11:<Ka123456789>@cluster0.vjpps.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`; 
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
