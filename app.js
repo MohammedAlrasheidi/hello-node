@@ -5,15 +5,8 @@ const bodyParser = require('body-parser')
 const { urlencoded } = require('body-parser')
 const { ObjectId } = require('mongodb')
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = `mongodb+srv://malrasheidi_11:<Ka123456789>@cluster0.vjpps.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`; 
-
-app.use(bodyParser.urlencoded({ extended: true }))
-app.set('view engine', 'ejs')
-app.use(express.static('./public/'))
-
-console.log(uri);
-
-console.log('im on a node server change that and that tanad f, yo');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://malrasheidi_11:<Ka123456789>@cluster0.vjpps.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
