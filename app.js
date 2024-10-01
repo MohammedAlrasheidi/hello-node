@@ -1,115 +1,114 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const { urlencoded } = require('body-parser')
-const { ObjectId } = require('mongodb')
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://malrasheidi_11:<Ka123456789>@cluster0.vjpps.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
+const app = express();
+const mongoApiUrl = "https://us-east-2.aws.data.mongodb-api.com/app/data-inolzhb/endpoint/data/v1/action/";
+const apiKey = process.env.MONGO_API_KEY;  // Use your API key stored in .env
+
+// Middleware to parse incoming request bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Test connection
+app.get('/', (req, res) => {
+  res.sendFile('index.html');
+});
+
+app.get('/ejs', (req, res) => {
+  res.render('index', { myServerVariable: "something from server" });
+});
+
+// Read all documents from the collection
+app.get('/read', async (req, res) => {
+  try {
+    const response = await axios.post(`${mongoApiUrl}find`, {
+      collection: "whatever-collection",  // Replace with your collection name
+      database: "Mohammed-db",  // Replace with your database name
+      dataSource: "Cluster0"
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': apiKey
+      }
+    });
+
+    const result = response.data;
+    res.render('mongo', { postData: result.documents });
+  } catch (error) {
+    console.error("Error reading from database:", error);
+    res.status(500).send("Error reading from database.");
   }
 });
 
-async function run() {
+// Insert a document into the collection
+app.post('/insert', async (req, res) => {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    await axios.post(`${mongoApiUrl}insertOne`, {
+      collection: "whatever-collection",  // Replace with your collection name
+      database: "Mohammeds-db",  // Replace with your database name
+      dataSource: "Cluster0",
+      document: { post: 'hardcoded post insert' }  // Replace with your data
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': apiKey
+      }
+    });
+
+    res.redirect('/read');
+  } catch (error) {
+    console.error("Error inserting into database:", error);
+    res.status(500).send("Error inserting into database.");
   }
-}
-run().catch(console.dir);
+});
 
-// function whateverNameOfIt (params) {}
-// ()=>{}
+// Update a document in the collection
+app.post('/update/:id', async (req, res) => {
+  try {
+    await axios.post(`${mongoApiUrl}updateOne`, {
+      collection: "whatever-collection",  // Replace with your collection name
+      database: "barrys-db",  // Replace with your database name
+      dataSource: "Cluster0",
+      filter: { "_id": { "$oid": req.params.id } },
+      update: { "$set": { "post": "NEW POST" } }
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': apiKey
+      }
+    });
 
-app.get('/', function (req, res) {
-  // res.send('Hello Node from Ex on local dev box')
-  res.sendFile('index.html');
-})
+    res.redirect('/read');
+  } catch (error) {
+    console.error("Error updating document:", error);
+    res.status(500).send("Error updating document.");
+  }
+});
 
-app.get('/ejs', (req,res)=>{
-``
-  res.render('index', {
-    myServerVariable : "something from server"
-  });
+// Delete a document from the collection
+app.post('/delete/:id', async (req, res) => {
+  try {
+    await axios.post(`${mongoApiUrl}deleteOne`, {
+      collection: "whatever-collection",  // Replace with your collection name
+      database: "Mohammed-db",  // Replace with your database name
+      dataSource: "Cluster0",
+      filter: { "_id": { "$oid": req.params.id } }
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': apiKey
+      }
+    });
 
-  //can you get content from client...to console? 
-})
+    res.redirect('/read');
+  } catch (error) {
+    console.error("Error deleting document:", error);
+    res.status(500).send("Error deleting document.");
+  }
+});
 
-app.get('/read', async (req,res)=>{
-
-  console.log('in /mongo');
-  await client.connect();
-  
-  console.log('connected?');
-  // Send a ping to confirm a successful connection
-  
-  let result = await client.db("Mohammed-db").collection("whatever-collection")
-    .find({}).toArray(); 
-  console.log(result); 
-
-  res.render('mongo', {
-    postData : result
-  });
-
-})
-
-app.get('/insert', async (req,res)=> {
-
-  console.log('in /insert');
-  //connect to db,
-  await client.connect();
-  //point to the collection 
-  await client.db("Mohammeds-db").collection("whatever-collection").insertOne({ post: 'hardcoded post insert '});
-  await client.db("Mohammeds-db").collection("whatever-collection").insertOne({ iJustMadeThisUp: 'hardcoded new key '});  
-  //insert into it
-  res.render('insert');
-
-}); 
-
-app.post('/update/:id', async (req,res)=>{
-
-  console.log("req.parms.id: ", req.params.id)
-
-  client.connect; 
-  const collection = client.db("barrys-db").collection("whatever-collection");
-  let result = await collection.findOneAndUpdate( 
-  {"_id": new ObjectId(req.params.id)}, { $set: {"post": "NEW POST" } }
-)
-.then(result => {
-  console.log(result); 
-  res.redirect('/read');
-})
-}); 
-
-app.post('/delete/:id', async (req,res)=>{
-
-  console.log("req.parms.id: ", req.params.id)
-
-  client.connect; 
-  const collection = client.db("Mohammed-db").collection("whatever-collection");
-  let result = await collection.findOneAndDelete( 
-  {"_id": new ObjectId(req.params.id)})
-
-.then(result => {
-  console.log(result); 
-  res.redirect('/read');
-})
-
-  //insert into it
-
-})
-
-app.listen(5500);
+app.listen(5500, () => {
+  console.log('Server is running on http://localhost:5500');
+});
