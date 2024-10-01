@@ -90,3 +90,10 @@ app.post('/delete/:id', async (req, res) => {
 app.listen(5500, () => {
   console.log('Server is running on http://localhost:5500');
 });
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  await client.close();
+  console.log('MongoDB connection closed.');
+  process.exit(0);
+});
