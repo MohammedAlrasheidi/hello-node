@@ -23,7 +23,7 @@ app.get('/read', async (req, res) => {
   try {
     const response = await axios.post(`${mongoApiUrl}find`, {
       collection: "whatever-collection",
-      database: "Mohammed-db",
+      database: "malrasheidi_11",
       dataSource: "Cluster0"
     }, {
       headers: {
@@ -65,7 +65,7 @@ app.post('/update/:id', async (req, res) => {
   try {
     await axios.post(`${mongoApiUrl}updateOne`, {
       collection: "whatever-collection",
-      database: "Mohammed-db",
+      database: "malrasheidi_11",
       dataSource: "Cluster0",
       filter: { "_id": { "$oid": req.params.id } },
       update: { "$set": { "post": "NEW POST" } }
@@ -87,7 +87,7 @@ app.post('/delete/:id', async (req, res) => {
   try {
     await axios.post(`${mongoApiUrl}deleteOne`, {
       collection: "whatever-collection",
-      database: "Mohammed-db",
+      database: "malrasheidi_11",
       dataSource: "Cluster0",
       filter: { "_id": { "$oid": req.params.id } }
     }, {
