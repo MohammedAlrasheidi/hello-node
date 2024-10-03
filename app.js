@@ -5,13 +5,12 @@ const axios = require('axios');
 
 const app = express();
 const mongoApiUrl = "https://us-east-2.aws.data.mongodb-api.com/app/data-inolzhb/endpoint/data/v1/action/";
-const apiKey = process.env.MONGO_API_KEY; 4mVajl7Bh3ADTzTK8uLQWunGP3Ke3bdegBEFMTwAhajcNyfRlDoLbH07G23NeWgZ
+const apiKey = process.env.MONGO_API_KEY;
+const PORT = process.env.PORT || 3000;
 
-// Middleware to parse incoming request bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Test connection
 app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
@@ -20,12 +19,11 @@ app.get('/ejs', (req, res) => {
   res.render('index', { myServerVariable: "something from server" });
 });
 
-// Read all documents from the collection
 app.get('/read', async (req, res) => {
   try {
     const response = await axios.post(`${mongoApiUrl}find`, {
-      collection: "whatever-collection",  // Replace with your collection name
-      database: "Mohammed-db",  // Replace with your database name
+      collection: "whatever-collection",
+      database: "Mohammed-db",
       dataSource: "Cluster0"
     }, {
       headers: {
@@ -42,14 +40,13 @@ app.get('/read', async (req, res) => {
   }
 });
 
-// Insert a document into the collection
 app.post('/insert', async (req, res) => {
   try {
     await axios.post(`${mongoApiUrl}insertOne`, {
-      collection: "whatever-collection",  // Replace with your collection name
-      database: "Mohammeds-db",  // Replace with your database name
+      collection: "whatever-collection",
+      database: "Mohammed-db",
       dataSource: "Cluster0",
-      document: { post: 'hardcoded post insert' }  // Replace with your data
+      document: { post: 'hardcoded post insert' }
     }, {
       headers: {
         'Content-Type': 'application/json',
@@ -64,12 +61,11 @@ app.post('/insert', async (req, res) => {
   }
 });
 
-// Update a document in the collection
 app.post('/update/:id', async (req, res) => {
   try {
     await axios.post(`${mongoApiUrl}updateOne`, {
-      collection: "whatever-collection",  // Replace with your collection name
-      database: "barrys-db",  // Replace with your database name
+      collection: "whatever-collection",
+      database: "Mohammed-db",
       dataSource: "Cluster0",
       filter: { "_id": { "$oid": req.params.id } },
       update: { "$set": { "post": "NEW POST" } }
@@ -87,12 +83,11 @@ app.post('/update/:id', async (req, res) => {
   }
 });
 
-// Delete a document from the collection
 app.post('/delete/:id', async (req, res) => {
   try {
     await axios.post(`${mongoApiUrl}deleteOne`, {
-      collection: "whatever-collection",  // Replace with your collection name
-      database: "Mohammed-db",  // Replace with your database name
+      collection: "whatever-collection",
+      database: "Mohammed-db",
       dataSource: "Cluster0",
       filter: { "_id": { "$oid": req.params.id } }
     }, {
@@ -109,6 +104,6 @@ app.post('/delete/:id', async (req, res) => {
   }
 });
 
-app.listen(5500, () => {
-  console.log('Server is running on http://localhost:5500');
+app.listen(PORT, () => {
+  console.log(`Server is running & listening on port ${PORT}`);
 });
