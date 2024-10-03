@@ -2,17 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const path = require('path');
 
 const app = express();
-const mongoApiUrl = "https://us-east-2.aws.data.mongodb-api.com/app/data-inolzhb/endpoint/data/v1;
-const apiKey = process.env.MONGO_API_KEY; 4mVajl7Bh3ADTzTK8uLQWunGP3Ke3bdegBEFMTwAhajcNyfRlDoLbH07G23NeWgZ
+const mongoApiUrl = "https://us-east-2.aws.data.mongodb-api.com/app/data-inolzhb/endpoint/data/v1/action/";
+const apiKey = process.env.MONGO_API_KEY;
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/ejs', (req, res) => {
@@ -31,11 +33,8 @@ app.get('/read', async (req, res) => {
         'api-key': apiKey
       }
     });
-
-    const result = response.data;
-    res.render('mongo', { postData: result.documents });
+    res.render('mongo', { postData: response.data.documents });
   } catch (error) {
-    console.error("Error reading from database:", error);
     res.status(500).send("Error reading from database.");
   }
 });
@@ -44,7 +43,7 @@ app.post('/insert', async (req, res) => {
   try {
     await axios.post(`${mongoApiUrl}insertOne`, {
       collection: "whatever-collection",
-      database: "Mohammed-db",
+      database: "malrasheidi_11",
       dataSource: "Cluster0",
       document: { post: 'hardcoded post insert' }
     }, {
@@ -53,10 +52,8 @@ app.post('/insert', async (req, res) => {
         'api-key': apiKey
       }
     });
-
     res.redirect('/read');
   } catch (error) {
-    console.error("Error inserting into database:", error);
     res.status(500).send("Error inserting into database.");
   }
 });
@@ -75,10 +72,8 @@ app.post('/update/:id', async (req, res) => {
         'api-key': apiKey
       }
     });
-
     res.redirect('/read');
   } catch (error) {
-    console.error("Error updating document:", error);
     res.status(500).send("Error updating document.");
   }
 });
@@ -96,10 +91,8 @@ app.post('/delete/:id', async (req, res) => {
         'api-key': apiKey
       }
     });
-
     res.redirect('/read');
   } catch (error) {
-    console.error("Error deleting document:", error);
     res.status(500).send("Error deleting document.");
   }
 });
