@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 
 const app = express();
-const mongoApiUrl = "https://us-east-2.aws.data.mongodb-api.com/app/data-inolzhb/endpoint/data/v1/action/";
+const mongoApiUrl = "https://us-east-2.aws.data.mongodb-api.com/app/data-inolzhb/endpoint/data/v1;
 const apiKey = process.env.MONGO_API_KEY;
 const PORT = process.env.PORT || 3000;
 
