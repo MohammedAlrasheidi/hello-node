@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const app = express();
 const mongoApiUrl = "https://us-east-2.aws.data.mongodb-api.com/app/data-inolzhb/endpoint/data/v1/action/";
-const apiKey = process.env.MONGO_API_KEY;  // Use your API key stored in .env
+const apiKey = process.env.MONGO_API_KEY; 4mVajl7Bh3ADTzTK8uLQWunGP3Ke3bdegBEFMTwAhajcNyfRlDoLbH07G23NeWgZ
 
 // Middleware to parse incoming request bodies
 app.use(bodyParser.json());
