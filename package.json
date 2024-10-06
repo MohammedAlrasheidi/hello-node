@@ -1,17 +1,27 @@
 {
-  "name": "nato-phonetic-factory",
+  "name": "hello-node",
   "version": "1.0.0",
-  "description": "A web application to convert text to the NATO phonetic alphabet.",
+  "description": "A simple Node.js application.",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "start": "node app.js",        
+    "dev": "nodemon app.js"        
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "nodemon": "^3.1.4"
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "nodemon": "^3.1.7",
+    "axios": "^1.4.0"              
   },
-  "devDependencies": {},
-  "keywords": ["NATO", "phonetic", "alphabet", "web app"],
   "author": "Mohammed Alrasheidi",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "express",
+    "application"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MohammedAlrasheidi/hello-node.git"
+  }
 }
