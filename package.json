@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "dotenv": "^16.4.5" // assuming you want to add dotenv
   },
   "devDependencies": {},
   "keywords": ["NATO", "phonetic", "alphabet", "web app"],
