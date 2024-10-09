@@ -10,13 +10,3 @@ Responsive Design: Works seamlessly across devices.
 Usage
 
 Visit the NATO Phonetic Fiasco Factory website, enter text, and click "Phonetic Playground" to see the NATO phonetic representation.
-
-Author
-
-Created by Mohammed Alrasheidi. Connect on LinkedIn. https://www.linkedin.com/in/mohammed-ksa-1912972b8/
-
-Contributing
-
-Contributions are welcome! Fork the repository and submit pull requests with your changes.
-
-My email Malrasheidi@una.edu
