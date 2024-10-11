@@ -1,12 +1,11 @@
-<h1> update the ejs </h1>
+<h1>Update Your Blog Posts</h1>
 
-<h3> my blog posts</h3> 
- <% for (var i=0; i< postData.length; i++ ) { %>
-  <form method="POST" action="/update/<%= postData[i]._id %>" style="display: inline-block">  
-    <%= postData[i].post %> 
-    <input type="submit" value="update"> 
+<h3>My Blog Posts</h3> 
+<% for (var i = 0; i < postData.length; i++) { %>
+  <form method="POST" action="/update/<%= postData[i]._id.$oid %>" style="margin-bottom: 20px;">
+    <input type="text" name="newPostContent" value="<%= postData[i].post %>" required>
+    <input type="submit" value="Update">
   </form>
-  <br/>
 <% } %>
 
-<a href="/read">bak to the read endpotn</a>
+<a href="/read">Back to the Read Endpoints</a>
