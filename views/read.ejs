@@ -1,0 +1,22 @@
+<h1>See my MongoDB results</h1>
+
+<h1>Insert something into Mongo</h1>
+<form method="POST" action="/insert" style="display: inline-block">  
+    <label for="newPost">New Post:</label>
+    <input id="newPost" name="newPost" required>
+    <input type="submit" value="Insert"> 
+</form>
+
+<h3>My Blog Posts</h3> 
+<% for (var i = 0; i < postData.length; i++) { %>
+  <form method="POST" action="/update/<%= postData[i]._id %>" style="display: inline-block">  
+    <%= postData[i].post %> 
+    <input type="submit" value="Update"> 
+  </form>
+  <form method="POST" action="/delete/<%= postData[i]._id %>" style="display: inline-block">  
+    <input type="submit" value="Delete"> 
+  </form>
+  <br/>
+<% } %>
+
+<hr>
