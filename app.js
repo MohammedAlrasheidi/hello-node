@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
 const path = require('path');
 
 const app = express();
@@ -25,80 +24,113 @@ app.get('/', (req, res) => {
 
 app.get('/read', async (req, res) => {
   try {
-    const response = await axios.post(`${mongoApiUrl}find`, {
-      collection: "whatever-collection",
-      database: "malrasheidi_11",
-      dataSource: "Cluster0"
-    }, {
+    const response = await fetch(`${mongoApiUrl}find`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'api-key': apiKey
-      }
+      },
+      body: JSON.stringify({
+        collection: "whatever-collection",
+        database: "malrasheidi_11",
+        dataSource: "Cluster0"
+      })
     });
-    res.render('mongo', { postData: response.data.documents });
+
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.error || 'Error reading from database');
+    }
+
+    res.render('mongo', { postData: data.documents });
   } catch (error) {
-    console.error('Error reading from database:', error.response ? error.response.data : error.message);
+    console.error('Error reading from database:', error.message);
     res.status(500).send("Error reading from database.");
   }
 });
 
 app.post('/insert', async (req, res) => {
   try {
-    await axios.post(`${mongoApiUrl}insertOne`, {
-      collection: "whatever-collection",
-      database: "malrasheidi_11",
-      dataSource: "Cluster0",
-      document: { post: 'hardcoded post insert' }
-    }, {
+    const response = await fetch(`${mongoApiUrl}insertOne`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'api-key': apiKey
-      }
+      },
+      body: JSON.stringify({
+        collection: "whatever-collection",
+        database: "malrasheidi_11",
+        dataSource: "Cluster0",
+        document: { post: 'hardcoded post insert' }
+      })
     });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.error || 'Error inserting into database');
+    }
+
     res.redirect('/read');
   } catch (error) {
-    console.error('Error inserting into database:', error.response ? error.response.data : error.message);
+    console.error('Error inserting into database:', error.message);
     res.status(500).send("Error inserting into database.");
   }
 });
 
 app.post('/update/:id', async (req, res) => {
   try {
-    await axios.post(`${mongoApiUrl}updateOne`, {
-      collection: "whatever-collection",
-      database: "malrasheidi_11",
-      dataSource: "Cluster0",
-      filter: { "_id": { "$oid": req.params.id } },
-      update: { "$set": { "post": "NEW POST" } }
-    }, {
+    const response = await fetch(`${mongoApiUrl}updateOne`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'api-key': apiKey
-      }
+      },
+      body: JSON.stringify({
+        collection: "whatever-collection",
+        database: "malrasheidi_11",
+        dataSource: "Cluster0",
+        filter: { "_id": { "$oid": req.params.id } },
+        update: { "$set": { "post": "NEW POST" } }
+      })
     });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.error || 'Error updating document');
+    }
+
     res.redirect('/read');
   } catch (error) {
-    console.error('Error updating document:', error.response ? error.response.data : error.message);
+    console.error('Error updating document:', error.message);
     res.status(500).send("Error updating document.");
   }
 });
 
 app.post('/delete/:id', async (req, res) => {
   try {
-    await axios.post(`${mongoApiUrl}deleteOne`, {
-      collection: "whatever-collection",
-      database: "malrasheidi_11",
-      dataSource: "Cluster0",
-      filter: { "_id": { "$oid": req.params.id } }
-    }, {
+    const response = await fetch(`${mongoApiUrl}deleteOne`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'api-key': apiKey
-      }
+      },
+      body: JSON.stringify({
+        collection: "whatever-collection",
+        database: "malrasheidi_11",
+        dataSource: "Cluster0",
+        filter: { "_id": { "$oid": req.params.id } }
+      })
     });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.error || 'Error deleting document');
+    }
+
     res.redirect('/read');
   } catch (error) {
-    console.error('Error deleting document:', error.response ? error.response.data : error.message);
+    console.error('Error deleting document:', error.message);
     res.status(500).send("Error deleting document.");
   }
 });
